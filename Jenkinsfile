@@ -3,9 +3,9 @@ pipeline {
   agent any
 
   environment {
-    DOCKER_IMAGE  = "your-docker-hub-username/static-website"
+    DOCKER_IMAGE  = "gopikakt2005/static-website"
     GIT_REPO_NAME = "python-flask-app"
-    GIT_USER_NAME = "Doom710"
+    GIT_USER_NAME = "gopikakt2005"
   }
 
   options {
@@ -16,7 +16,8 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git branch: 'main', url: 'https://github.com/Doom710/python-flask-app'
+        sh 'echo'"checkout successfull"
+       // git branch: 'main', url: 'https://github.com/Doom710/python-flask-app'
       }
     }
 
@@ -57,7 +58,7 @@ pipeline {
       steps {
         withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
           sh '''
-            git config user.email "xyz@gmail.com"
+            git config user.email "gopikakt2005@gmail.com"
             git config user.name "${GIT_USER_NAME}"
 
             sed -i "s|image: .*|image: ${DOCKER_IMAGE}:${BUILD_NUMBER}|g" k8s/deployment.yaml
